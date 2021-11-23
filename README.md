@@ -1,7 +1,7 @@
 # [Issue Tracker](https://www.freecodecamp.org/learn/quality-assurance/quality-assurance-projects/issue-tracker)
 
 ### Requirement
-<code>npm install mongodb@latest</code>
+<code>npm install mongodb@latest</code> <br>
 <code>npm install mongoose@latest</code>
 
 
