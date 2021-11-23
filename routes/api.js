@@ -1,17 +1,16 @@
+const expect = require("chai").expect;
+const MongoClient = require("mongodb");
+const ObjectId = require("mongodb").ObjectID;
+const mongoose = require("mongoose");
+const uri = process.env["MONGO_URI"];
 
-const expect = require('chai').expect;
-const MongoClient = require('mongodb');
-const ObjectId = require('mongodb').ObjectID;
-const mongoose = require('mongoose');
-const uri = process.env['MONGO_URI']
+("use strict");
 
-'use strict';
-
-module.exports = function(app) {
+module.exports = function (app) {
   mongoose.connect(uri, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+    useUnifiedTopology: true,
+  });
 
   let issueSchema = new mongoose.Schema({
     issue_title: { type: String, required: true },
@@ -22,75 +21,125 @@ module.exports = function(app) {
     open: { type: Boolean, required: true },
     created_on: { type: Date, required: true },
     updated_on: { type: Date, required: true },
-    project: String
-  })
+    project: String,
+  });
 
-  let Issue = mongoose.model('Issue', issueSchema)
-  app.route('/api/issues/:project')
-    .get(function(req, res) {
-      let project = req.params.project;
+  let Issue = mongoose.model("Issue", issueSchema);
+  app
+    .route("/api/issues/:project")
+    .get(function (req, res) {
+      var project = req.params.project;
+      let filterObject = Object.assign(req.query);
+      filterObject["project"] = project;
+      Issue.find(filterObject, (error, arrayOfResults) => {
+        if (!error && arrayOfResults) {
+          return res.json(arrayOfResults);
+        }
+      });
     })
 
     // POST
-    .post(function(req, res) {
+    .post(function (req, res) {
       let project = req.params.project;
-      if (!req.body.issue_title || !req.body.issue_text || !req.body.created_by) {
-        return res.json('Required fields missing from request')
+      if (
+        !req.body.issue_title ||
+        !req.body.issue_text ||
+        !req.body.created_by
+      ) {
+        return res.json({ error: "required field(s) missing" });
       }
       let addIssue = new Issue({
         issue_title: req.body.issue_title,
         issue_text: req.body.issue_text,
         created_by: req.body.created_by,
-        assigned_to: req.body.assigned_to || '',
-        status_text: req.body.status_text || '',
+        assigned_to: req.body.assigned_to || "",
+        status_text: req.body.status_text || "",
         open: true,
         created_on: new Date().toUTCString(),
         updated_on: new Date().toUTCString(),
-        project: project
-      })
+        project: project,
+      });
 
       addIssue.save((error, savedIssue) => {
         if (!error && savedIssue) {
           // console.log('Saved Issue is')
           // console.log(savedIssue)
           // Return object with the new issue data
-          res.json(savedIssue)
+          res.json(savedIssue);
         }
-      })
+      });
     })
 
     // PUT
-    .put(function(req, res) {
+    .put(function (req, res) {
       var project = req.params.project;
-      let updateObject = {}
+      let updateObject = {};
       Object.keys(req.body).forEach((key) => {
-        if (req.body[key] != '') {
-          updateObject[key] = req.body[key]
+        if (req.body[key] != "") {
+          updateObject[key] = req.body[key];
         }
-      })
-      if (Object.keys(updateObject).length < 2) {
-        return res.json('no updated field sent')
+      });
+      if (!req.body._id) {
+        return res.json({ error: "missing _id" });
       }
-      updateObject['updated_on'] = new Date().toUTCString()
+      if (Object.keys(updateObject).length < 2) {
+        return res.json({
+          error: "no update field(s) sent",
+          _id: req.body._id,
+        });
+      }
+      updateObject["updated_on"] = new Date().toUTCString();
       Issue.findByIdAndUpdate(
         req.body._id,
         updateObject,
         { new: true },
         (error, updatedIssue) => {
           if (!error && updatedIssue) {
-            return res.json('successfully updated')
+            return res.json({
+              result: "successfully updated",
+              _id: req.body._id,
+            });
           } else if (!updatedIssue) {
-            return res.json('could not update ' + req.body._id)
+            return res.json("could not update " + req.body._id);
           }
         }
-      )
+      );
+    })
+    .put(function (req, res) {
+      var project = req.params.project;
+      let updateObject = {};
+      Object.keys(req.body).forEach((key) => {
+        if (req.body[key] != "") {
+          updateObject[key] = req.body[key];
+        }
+      });
+      if (Object.keys(updateObject).length < 2) {
+        return res.json("no updated field sent");
+      }
+      updateObject["updated_on"] = new Date().toUTCString();
+      Issue.findByIdAndUpdate(
+        req.body._id,
+        updateObject,
+        { new: true },
+        (error, updatedIssue) => {
+          if (!error && updatedIssue) {
+            return res.json("successfully updated");
+          } else if (!updatedIssue) {
+            return res.json({ error: 'could not update', '_id': req.body._id });
+          }
+        }
+      );
     })
 
     // DELETE
-    .delete(function(req, res) {
-      let project = req.params.project;
-
-
+    .delete(function (req, res){
+      const { _id } = req.body;
+      if (!_id) { return res.json({ error: 'missing _id' }); }
+      issueModel.findByIdAndRemove(_id, (err, removedIssue) => {
+        if (err || !removedIssue) {
+          return res.json({ error: 'could not delete', '_id': _id });
+        } 
+        return res.json({ result: 'successfully deleted', '_id': _id });
+      });
     });
-
 };
