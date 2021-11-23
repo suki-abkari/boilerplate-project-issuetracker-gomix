@@ -12,6 +12,7 @@ module.exports = function(app) {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
+
   let issueSchema = new mongoose.Schema({
     issue_title: { type: String, required: true },
     issue_text: { type: String, required: true },
@@ -25,16 +26,17 @@ module.exports = function(app) {
   })
 
   let Issue = mongoose.model('Issue', issueSchema)
-  console.log(Issue)
-
   app.route('/api/issues/:project')
     .get(function(req, res) {
       let project = req.params.project;
-
     })
 
+    // POST
     .post(function(req, res) {
       let project = req.params.project;
+      if (!req.body.issue_title || !req.body.issue_text || !req.body.created_by) {
+        return res.json('Required fields missing from request')
+      }
       let addIssue = new Issue({
         issue_title: req.body.issue_title,
         issue_text: req.body.issue_text,
@@ -46,21 +48,48 @@ module.exports = function(app) {
         updated_on: new Date().toUTCString(),
         project: project
       })
+
       addIssue.save((error, savedIssue) => {
         if (!error && savedIssue) {
-          console.log('Saved Issue is')
-          console.log(savedIssue)
+          // console.log('Saved Issue is')
+          // console.log(savedIssue)
+          // Return object with the new issue data
+          res.json(savedIssue)
         }
       })
     })
 
+    // PUT
     .put(function(req, res) {
-      let project = req.params.project;
-
+      var project = req.params.project;
+      let updateObject = {}
+      Object.keys(req.body).forEach((key) => {
+        if (req.body[key] != '') {
+          updateObject[key] = req.body[key]
+        }
+      })
+      if (Object.keys(updateObject).length < 2) {
+        return res.json('no updated field sent')
+      }
+      updateObject['updated_on'] = new Date().toUTCString()
+      Issue.findByIdAndUpdate(
+        req.body._id,
+        updateObject,
+        { new: true },
+        (error, updatedIssue) => {
+          if (!error && updatedIssue) {
+            return res.json('successfully updated')
+          } else if (!updatedIssue) {
+            return res.json('could not update ' + req.body._id)
+          }
+        }
+      )
     })
 
+    // DELETE
     .delete(function(req, res) {
       let project = req.params.project;
+
 
     });
 
