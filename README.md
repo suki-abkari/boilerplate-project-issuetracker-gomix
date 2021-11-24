@@ -47,7 +47,8 @@ FCC Quality Assurance 2nd project: In this microservice the user can create, upd
 13. Delete an issue with an invalid \_id: DELETE request to /api/issues/{project} <img src="https://img.icons8.com/emoji/15/000000/check-mark-emoji.png"/>
 14. Delete an issue with missing \_id: DELETE request to /api/issues/{project} <img src="https://img.icons8.com/emoji/15/000000/check-mark-emoji.png"/>
 
-<!-- <img src="https://img.icons8.com/external-sbts2018-lineal-color-sbts2018/48/000000/external-developer-women-profession-sbts2018-lineal-color-sbts2018.png"/> -->
+<img src="https://img.icons8.com/external-sbts2018-lineal-color-sbts2018/48/000000/external-developer-women-profession-sbts2018-lineal-color-sbts2018.png"/>
+
 ### [Demo](https://boilerplate-project-issuetracker.sukainaabkari.repl.co/)</a>
 
 ## Author
