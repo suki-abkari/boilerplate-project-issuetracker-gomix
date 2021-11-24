@@ -48,7 +48,7 @@ FCC Quality Assurance 2nd project: In this microservice the user can create, upd
 14. Delete an issue with missing \_id: DELETE request to /api/issues/{project} <img src="https://img.icons8.com/emoji/15/000000/check-mark-emoji.png"/>
 
 
-### <a target="_blank">[Demo](https://boilerplate-project-issuetracker.sukainaabkari.repl.co/)</a>
+### <a>[Demo](https://boilerplate-project-issuetracker.sukainaabkari.repl.co/)</a>
 
 ## <a href="https://www.freecodecamp.org/suki-220" target="_blank"><img src="https://img.icons8.com/external-sbts2018-lineal-color-sbts2018/30/000000/external-developer-women-profession-sbts2018-lineal-color-sbts2018.png"/></a> Authors
 
