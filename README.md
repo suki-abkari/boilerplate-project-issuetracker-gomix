@@ -1,6 +1,6 @@
 
 ## About 
-
+FCC Quality Assurance 2nd project: In this microservice the user can create, update or delete an issue. (Issue tracker)
 
 
 # [Issue Tracker](https://www.freecodecamp.org/learn/quality-assurance/quality-assurance-projects/issue-tracker)
