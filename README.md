@@ -23,7 +23,7 @@ FCC Quality Assurance 2nd project: In this microservice the user can create, upd
 
 - TODO
 1. Complete the necessary routes in /routes/api.js  <img src="https://img.icons8.com/emoji/15/000000/check-mark-emoji.png"/>
-2. Create all of the functional tests in tests/2_functional-tests.js <img src="https://img.icons8.com/emoji/18/000000/check-mark-emoji.png"/>
+2. Create all of the functional tests in tests/2_functional-tests.js <img src="https://img.icons8.com/emoji/15/000000/check-mark-emoji.png"/>
 3. Copy the sample.env file to .env and set the variables appropriately <img src="https://img.icons8.com/emoji/15/000000/check-mark-emoji.png"/>
 4. To run the tests uncomment NODE_ENV=test in your .env file <img src="https://img.icons8.com/emoji/15/000000/check-mark-emoji.png"/>
 5. To run the tests in the console, use the command npm run test. To open the Replit console, press Ctrl+Shift+P (Cmd if on a Mac) and type "open shell" <img src="https://img.icons8.com/emoji/15/000000/check-mark-emoji.png"/>
