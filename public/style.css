@@ -1,23 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,600;0,700;1,400&display=swap");
+
 * {
   margin: 0px;
   padding: 0px;
 }
 
 body {
-  padding: 10px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
 }
 
+header {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  flex-direction: row;
+}
+footer {
+  padding: 1rem;
+}
+footer,
+footer a {
+  display: flex;
+  justify-content: center;
+}
+
+footer .icon {
+  width: 30px;
+  margin: 0.3rem;
+}
+input,
+textarea,
+botton {
+  max-width: 25.2rem;
+  padding: 0.4rem;
+  outline: none;
+}
+
+button {
+  max-width: 26.2rem;
+  cursor: pointer;
+}
+button:active {
+  background-color: darkblue;
+  color: #ffffff;
+}
+button:hover,
+.closeIssue:hover,
+.deleteIssue:hover {
+  background-color: darkblue;
+  color: #ffffff;
+}
+
+.deleteIssue:hover {
+  background-color: red;
+  color: #ffffff;
+}
 .issue {
-  margin: 20px;
-  padding: 5px;
-  width: 60%;
-  border: 2px solid black;
+  margin: 20px 0;
+  padding: 1rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .closed {
   background-color: lightgrey;
 }
 
-.id {
+/* .id {
   font-size: 10.5px;
+} */
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.aligne_center {
+  align-items: center;
+}
+.flex_row {
+  flex-direction: row;
+}
+
+.w_100 {
+  width: 100%;
+}
+
+.padding_5 {
+  padding: 0rem 5rem;
+}
+
+input,
+button {
+  font-size: 13px;
+  color: #555;
+  outline: none;
+  border: 1px solid #bbb;
+  padding: 12px 8px;
+  border-radius: 5rem;
+  position: relative;
+}
+
+textarea {
+  font-size: 13px;
+  color: #555;
+  outline: none;
+  border: 1px solid #bbb;
+  padding: 12px 8px;
+  border-radius: 1rem;
+  position: relative;
+}
+input:invalid + label {
+  transform: translateY(0);
+}
+
+input:focus {
+  border-color: #2b96f1;
+}
+input + label {
+  color: #2b96f1;
+  transform: translateY(-20px);
+}
+
+.title {
+  /* margin: 4rem 0 0; */
+  padding: 0 1rem 0 5rem;
+}
+
+/* ICONS */
+.tab_icon {
+  width: 18px;
+  margin: 0 5px;
+  vertical-align: middle;
+}
+.back_icon {
+  width: 25px;
+  vertical-align: middle;
+}
+.closeIssue,
+.deleteIssue {
+  color: #555;
+  outline: none;
+  border: 1px solid #bbb;
+  padding: 7px 8px;
+  border-radius: 1rem;
+  position: relative;
+  line-height: 3rem;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 640px) {
+  header {
+    display: block;
+  }
+
+  .padding_5 {
+    padding: 0rem 2rem;
+  }
+
+  small {
+    font-size: 18px;
+  }
+  .title {
+    padding: 0 1rem 0 2rem;
+  }
 }

@@ -100,7 +100,7 @@ module.exports = function (app) {
               _id: req.body._id,
             });
           } else if (!updatedIssue) {
-            return res.json("could not update " + req.body._id);
+            return res.json({ error: "could not update", _id: req.body._id });
           }
         }
       );
@@ -114,7 +114,10 @@ module.exports = function (app) {
         }
       });
       if (Object.keys(updateObject).length < 2) {
-        return res.json("no updated field sent");
+        return res.json({
+          error: "no update field(s) sent",
+          _id: req.body._id,
+        });
       }
       updateObject["updated_on"] = new Date().toUTCString();
       Issue.findByIdAndUpdate(
@@ -123,23 +126,31 @@ module.exports = function (app) {
         { new: true },
         (error, updatedIssue) => {
           if (!error && updatedIssue) {
-            return res.json("successfully updated");
+            return res.json({
+              result: "successfully updated",
+              _id: req.body._id,
+            });
           } else if (!updatedIssue) {
-            return res.json({ error: 'could not update', '_id': req.body._id });
+            return res.json({
+              error: "no update field(s) sent",
+              _id: req.body._id,
+            });
           }
         }
       );
     })
 
     // DELETE
-    .delete(function (req, res){
+    .delete(function (req, res) {
       const { _id } = req.body;
-      if (!_id) { return res.json({ error: 'missing _id' }); }
+      if (!_id) {
+        return res.json({ error: "missing _id" });
+      }
       issueModel.findByIdAndRemove(_id, (err, removedIssue) => {
         if (err || !removedIssue) {
-          return res.json({ error: 'could not delete', '_id': _id });
-        } 
-        return res.json({ result: 'successfully deleted', '_id': _id });
+          return res.json({ error: "could not delete", _id: req.body._id });
+        }
+        return res.json({ result: "successfully deleted", _id: req.body._id });
       });
     });
 };
