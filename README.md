@@ -50,6 +50,6 @@ FCC Quality Assurance 2nd project: In this microservice the user can create, upd
 
 ### [Demo](https://boilerplate-project-issuetracker.sukainaabkari.repl.co/)</a>
 
-## <img src="https://img.icons8.com/external-sbts2018-lineal-color-sbts2018/30/000000/external-developer-women-profession-sbts2018-lineal-color-sbts2018.png"/> Author
+## <img src="https://img.icons8.com/external-sbts2018-lineal-color-sbts2018/30/000000/external-developer-women-profession-sbts2018-lineal-color-sbts2018.png"/> Authors
 
 Sukaina Abkari & FCC
